@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class AgendaService {
   private http = inject(HttpClient);
-  private API_URL = 'https://agenda-backend.onrender.com/api';
+  private API_URL = 'https://agenda-backend-egq0.onrender.com/api';
 
   pacientes = signal<PacienteModel[]>([]);
   citas = signal<CitaModel[]>([]);
