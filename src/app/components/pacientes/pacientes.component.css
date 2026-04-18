@@ -1,0 +1,140 @@
+.pacientes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pacientes-container {
+  max-width: 900px;
+  width: 100%;
+}
+
+.form-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid var(--joesva-bg-sidebar);
+  box-shadow: 0 4px 15px var(--shadow-soft);;
+  margin-bottom: 40px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.full-width { grid-column: span 2; }
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input.is-invalid {
+  border: 2px solid #dc3545 !important;
+  background-color: #fff8f8;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-guardar {
+  flex: 1;
+  padding: 12px;
+  background-color: var(--joesva-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+.pacientes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pacientes-table th {
+  background-color: var(--joesva-bg-sidebar);
+  color: var(--joesva-primary);
+  padding: 15px;
+}
+
+.pacientes-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn-action {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-edit { 
+  background-color: #fff4e5; 
+  color: #ff9800; 
+  border-color: #ffe0b2; 
+}
+
+.btn-edit:hover { 
+  background-color: #ff9800; 
+  color: white; 
+}
+
+.btn-delete { 
+  background-color: #fff0f0; 
+  color: #dc3545; 
+  border-color: #ffcccc; 
+}
+
+.btn-delete:hover { 
+  background-color: #dc3545; 
+  color: white; 
+}
+
+.empty-msg { 
+  text-align: center; 
+  padding: 30px; 
+  color: #999; 
+  font-style: italic; 
+}

@@ -1,0 +1,112 @@
+<div class="pacientes-wrapper">
+  <div class="pacientes-container">
+    <h2 class="titulo-seccion">
+      {{ isEditing ? 'Editar Registro' : 'Registro de Pacientes' }}
+    </h2>
+
+    <form [formGroup]="pacienteForm" (ngSubmit)="guardarPaciente()" class="form-card">
+      <div class="form-grid">
+        
+        <div class="input-group">
+          <input formControlName="nombre" placeholder="Nombre Completo" 
+                 [class.is-invalid]="f['nombre'].touched && f['nombre'].invalid">
+          @if (f['nombre'].touched && f['nombre'].invalid) {
+            <small class="text-error">
+              {{ f['nombre'].errors?.['required'] ? 'El nombre es requerido' : 'Solo se permiten letras y espacios' }}
+            </small>
+          }
+        </div>
+        
+        <div class="input-group">
+          <input formControlName="cedula" placeholder="Cédula (10 dígitos)" maxlength="10"
+                 [class.is-invalid]="f['cedula'].touched && f['cedula'].invalid">
+          @if (f['cedula'].touched && f['cedula'].invalid) {
+            <small class="text-error">
+              {{ f['cedula'].errors?.['required'] ? 'Cédula requerida' : 'Cédula incorrecta' }}
+            </small>
+          }
+        </div>
+        
+        <div class="input-group">
+          <input formControlName="telefono" placeholder="Teléfono"
+                 [class.is-invalid]="f['telefono'].touched && f['telefono'].invalid">
+          @if (f['telefono'].touched && f['telefono'].invalid) {
+            <small class="text-error">Formato de teléfono incorrecto (9-10 dígitos)</small>
+          }
+        </div>
+        
+        <div class="input-group">
+          <input formControlName="direccion" placeholder="Dirección"
+                 [class.is-invalid]="f['direccion'].touched && f['direccion'].invalid">
+          @if (f['direccion'].touched && f['direccion'].invalid) {
+            <small class="text-error">Dirección requerida</small>
+          }
+        </div>
+        
+        <div class="input-group full-width">
+          <input formControlName="mail" placeholder="Correo Electrónico"
+                 [class.is-invalid]="f['mail'].touched && f['mail'].invalid">
+          @if (f['mail'].touched && f['mail'].invalid) {
+            <small class="text-error">Ingrese un correo electrónico válido</small>
+          }
+        </div>
+        
+        <div class="input-group full-width">
+          <input formControlName="motivoConsulta" placeholder="Motivo de la Consulta"
+                 [class.is-invalid]="f['motivoConsulta'].touched && f['motivoConsulta'].invalid">
+          @if (f['motivoConsulta'].touched && f['motivoConsulta'].invalid) {
+            <small class="text-error">Motivo de consulta requerido</small>
+          }
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-guardar" [disabled]="pacienteForm.invalid">
+          {{ isEditing ? '💾 Actualizar Paciente' : '➕ Guardar Paciente' }}
+        </button>
+        
+        @if (isEditing) {
+          <button type="button" (click)="cancelarEdicion()" class="btn-cancelar">
+            Cancelar
+          </button>
+        }
+      </div>
+    </form>
+
+    <div class="table-container">
+      <table class="pacientes-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Correo</th>
+            <th>Motivo</th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of agendaService.pacientes(); track p.id) {
+            <tr>
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.cedula }}</td>
+              <td>{{ p.telefono}}</td>
+              <td>{{ p.direccion }}</td>
+              <td>{{ p.mail }}</td>
+              <td>{{ p.motivoConsulta }}</td>
+              <td class="actions-cell">
+                <button class="btn-action btn-edit" (click)="prepararEdicion(p)" title="Editar">✏️</button>
+                <button class="btn-action btn-delete" (click)="confirmarEliminar(p.id)" title="Eliminar">🗑️</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="empty-msg">No hay pacientes registrados.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

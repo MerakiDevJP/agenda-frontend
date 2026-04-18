@@ -1,0 +1,38 @@
+<div class="main-container">
+  
+  <header class="main-header">
+    <div class="header-content">
+      <div class="header-logo-container">
+        <img src="assets/logo-2.png" alt="Óptica Joesva" class="header-logo">
+      </div>
+      <h2 class="header-title">Sistema de Agendamiento</h2>
+    </div>
+  </header>
+
+  <div class="content-body">
+    <nav id="sidebar-wrapper">
+      <div class="menu-items px-2 d-flex flex-column pt-3">
+        <button class="btn btn-joesva-menu" routerLink="/inicio" routerLinkActive="active">
+          🏠 Inicio
+        </button>
+        <button class="btn btn-joesva-menu" routerLink="/pacientes" routerLinkActive="active">
+          👤 Pacientes
+        </button>
+        <button class="btn btn-joesva-menu" routerLink="/agenda" routerLinkActive="active">
+          📅 Agenda
+        </button>
+      </div>
+    </nav>
+
+    <main id="page-content-wrapper">
+      <div class="content-padding">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+
+  <footer class="main-footer">
+    <em>Desarrollado por MerakiDev JP - Versión 1.0</em>
+  </footer>
+
+</div>

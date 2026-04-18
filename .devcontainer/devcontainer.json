@@ -1,0 +1,28 @@
+{
+  "name": "Angenda Frontend",
+  "dockerComposeFile": ["../../../../docker-compose.yml"],
+  "service": "angular",
+  "workspaceFolder": "/workspace/angular/gestion-citas",
+  
+  "runServices": ["angular"],
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "angular.ng-template",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+
+  "remoteUser": "root",
+  "remoteEnv": {
+    "COMPOSE_PROFILES": "frontend"
+  },
+  "forwardPorts": [4200]
+}

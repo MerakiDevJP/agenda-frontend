@@ -1,0 +1,140 @@
+:root {
+  /* Paleta Oficial Joesva */
+  --joesva-primary: #048c8b;         /* verde petróleo */
+  --joesva-bg-sidebar: #acd4d5;      /* celeste verdoso bajo */
+  --joesva-footer-bg: #006666;       /* verde oscuro */
+  --celeste-fuerte: #04b4f4;         /* Color de texto botones */
+  --joesva-white: #ffffff;
+  
+  /* Variables adicionales para Hover, Estados y Sombras */
+  --verde-ligero: #e0f2f1;           /* Para hovers de menú */
+  --error-color: #dc3545;            /* Rojo estándar para validaciones */
+  --shadow-soft: 0 4px 15px rgba(0,0,0,0.05);
+  --shadow-medium: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* Reset y Base */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8fafb; /* Fondo sutil para resaltar tarjetas blancas */
+  color: #333;
+  overflow: hidden; /* El scroll se maneja en el contenedor de contenido */
+}
+
+/* Estandarización de Títulos */
+.titulo-seccion {
+  color: var(--joesva-primary) !important;
+  font-weight: 800 !important;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  letter-spacing: -0.5px;
+}
+
+/* Tarjetas Pro (Estandarización de contenedores blancos) */
+.card-pro {
+  background: var(--joesva-white);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-pro:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+/* Estandarización de Inputs (Global) */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border-color: var(--joesva-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(4, 140, 139, 0.1);
+}
+
+/* Clases de Validación Globales */
+.is-invalid {
+  border: 2px solid var(--error-color) !important;
+  background-color: #fff8f8;
+}
+
+.text-error {
+  color: var(--error-color);
+  font-size: 0.75rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Botones Principales (como el de Guardar) */
+.btn-primary-joesva {
+  background-color: var(--joesva-primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-primary-joesva:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn-primary-joesva:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Botones del Sidebar (como los de la imagen) */
+.btn-joesva-menu {
+  background-color: white !important;
+  color: var(--celeste-fuerte) !important;
+  border: 1.5px solid var(--celeste-fuerte) !important;
+  border-radius: 4px !important;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 8px 5px;
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: center;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+  display: block;
+}
+
+.btn-joesva-menu:hover, .btn-joesva-menu.active {
+  background-color: var(--verde-ligero) !important;
+  border-color: var(--joesva-primary) !important;
+  color: var(--joesva-primary) !important;
+}
+
+/* Scrollbar Personalizado para Browsers Modernos */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--joesva-bg-sidebar);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--joesva-primary);
+}

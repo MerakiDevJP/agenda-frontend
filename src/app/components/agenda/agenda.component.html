@@ -1,0 +1,70 @@
+<div class="agenda-wrapper">
+  <div class="agenda-container">
+    <h2 class="titulo-seccion">Agendamiento de Citas</h2>
+
+    <div class="filter-card">
+      <div class="filter-group">
+        <label for="paciente">Paciente:</label>
+        <select id="paciente" (change)="onPacienteChange($event)">
+          <option value="">-- Seleccionar Paciente --</option>
+          @for (p of agendaService.pacientes(); track p.id) {
+            <option [value]="p.id">{{ p.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fecha" [value]="fechaSeleccionada()" (change)="onFechaChange($event)">
+        </div>
+        <div class="filter-group">
+          <label for="optometra">Optómetra:</label>
+          <select id="optometra" (change)="onOptometraChange($event)">
+            <option value="">-- Seleccionar --</option>
+            @for (opt of optometras; track opt) {
+              <option [value]="opt">{{ opt }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="leyenda">
+      <span><span class="dot verde"></span> Disponible</span>
+      <span><span class="dot rojo"></span> Reservado</span>
+    </div>
+
+    <div class="grid-container">
+      <div class="pantalla-simulada">HORARIOS DISPONIBLES</div>
+      
+      <div class="grid-citas">
+        @for (c of citasFiltradas(); track c.hora) {
+          <div 
+            class="asiento" 
+            [class.reservada]="c.estado === 'ocupado'"
+            [class.disponible]="c.estado === 'disponible'">
+            
+            <span class="hora">{{ c.hora }}</span>
+            
+            <div class="acciones-asiento">
+              @if (c.estado === 'disponible') {
+                <small>Libre</small>
+                <button class="btn-accion btn-reservar" (click)="reservarCita(c)">
+                  Reservar
+                </button>
+              } @else {
+                <small>Ocupado</small>
+                <button class="btn-accion btn-cancelar" (click)="cancelarCita(c.id)">
+                  Cancelar
+                </button>
+              }
+            </div>
+          </div>
+        } @empty {
+          <p class="msg-ayuda">Seleccione un optómetra para visualizar los horarios disponibles.</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

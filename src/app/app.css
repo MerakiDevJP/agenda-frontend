@@ -1,0 +1,112 @@
+/* ==========================================================================
+   LAYOUT PRINCIPAL
+   ========================================================================== */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.content-body {
+  display: flex; /* Alinea Sidebar y Main horizontalmente */
+  flex: 1;       /* Ocupa todo el espacio entre header y footer */
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   HEADER (Logo a la izquierda, título centrado)
+   ========================================================================== */
+.main-header {
+  background-color: var(--joesva-primary);
+  color: white;
+  padding: 5px 20px;
+  flex-shrink: 0;
+  padding-left: 210px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  position: relative;
+}
+
+.header-logo-container {
+  position: absolute;
+  left: -190px; /* Lo movemos al espacio que está sobre el sidebar */
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 45px; /* Tamaño optimizado para la barra superior */
+  width: auto;
+  display: block;
+}
+
+.header-title {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin: 0;
+  font-weight: bold;
+  pointer-events: none; 
+}
+
+/* ==========================================================================
+   SIDEBAR (Navegación centrada)
+   ========================================================================== */
+#sidebar-wrapper {
+  width: 190px;
+  min-width: 190px;
+  background-color: var(--joesva-bg-sidebar); 
+  border-right: none;
+  display: flex; 
+  flex-direction: column;
+  padding: 20px 12px; /* Padding simétrico para centrar botones */
+  box-sizing: border-box;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado uniforme entre botones */
+  width: 100%;
+}
+
+/* Asegura que los botones del styles.css ocupen todo el ancho del sidebar */
+.btn-joesva-menu {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   CONTENIDO CENTRAL
+   ========================================================================== */
+#page-content-wrapper {
+  flex-grow: 1;
+  background-color: white;
+  overflow-y: auto; /* Solo esta área tiene scroll */
+}
+
+.content-padding {
+  padding: 30px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.main-footer {
+  background-color: var(--joesva-footer-bg);
+  color: white;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}

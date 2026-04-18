@@ -1,0 +1,69 @@
+/* Contenedor principal: Centrado total */
+.welcome-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrado vertical */
+  align-items: center;     /* Centrado horizontal */
+  min-height: 100%;        /* Ocupa todo el alto */
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Título de bienvenida */
+.titulo-bienvenida {
+  color: var(--joesva-primary); 
+  font-weight: 800;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+/* Banner responsivo */
+.banner-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  border: 4px solid var(--joesva-primary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.banner-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Corrección de Responsividad para Instrucciones */
+.instrucciones-box {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: left; /* Texto alineado a la izquierda */
+  box-sizing: border-box;
+}
+
+.titulo-instrucciones {
+  color: var(--celeste-fuerte);
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.lista-instrucciones {
+  color: var(--celeste-fuerte);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  padding-left: 15px; /* Pequeño padding para móviles */
+}
+
+.nota p {
+  color: var(--joesva-primary);
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 35px;
+}

@@ -1,0 +1,72 @@
+# --- COMPILACIÓN Y SALIDA ---
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/www
+/build
+
+# --- DEPENDENCIAS (Node) ---
+/node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log*
+package-lock.json.log
+pnpm-debug.log*
+
+# --- ESPECÍFICO DE ANGULAR ---
+/.angular/cache
+/.angular/cli
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+.angular-errors.log
+
+# --- ENTORNOS Y SECRETOS (Importante) ---
+# Ignora archivos que contienen llaves de API o credenciales
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+/src/environments/environment.prod.ts
+
+# --- EDITORES E IDEs ---
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# IntelliJ / WebStorm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Otros
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# --- DOCKER / DEVCONTAINER ---
+# Si no se quiere subir la configuración de tu contenedor
+.devcontainer/ 
+
+# --- TESTING ---
+/cypress/videos
+/cypress/screenshots
+/.nyc_output
