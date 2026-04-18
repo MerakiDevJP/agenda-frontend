@@ -39,7 +39,7 @@ export class AgendaComponent {
     return this.horariosBase.map(hora => {
       // Buscamos coincidencia 
       const citaExistente = todasLasCitas.find(c => {
-        const fechaDB = c.fecha.split('T')[0]; 
+        const fechaDB = String(c.fecha).split('T')[0]; 
         return fechaDB === fechaFiltro && 
                c.hora === hora && 
                c.optometra === optometraFiltro;
