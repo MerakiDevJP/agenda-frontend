@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AgendaService } from '../../services/agenda.service';
 import { cedulaEcuatorianaValidator } from '../../validator/cedula.validator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pacientes',
@@ -34,7 +35,7 @@ export class PacientesComponent {
   guardarPaciente() {
     if (this.pacienteForm.invalid) {
       this.pacienteForm.markAllAsTouched();
-      //alert('Por favor, complete los campos correctamente.');
+      
       return;
     }
 
@@ -47,14 +48,14 @@ export class PacientesComponent {
       this.agendaService.actualizarPaciente(datosPaciente).subscribe({
         next: () => {
           this.cancelarEdicion();
-          // Swal.fire('Actualizado', 'Los datos se sincronizaron con TiDB.', 'success');
+          Swal.fire('Actualizado', 'Los datos se sincronizaron con TiDB.', 'success');
         },
         error: (err) => {
           console.error('Error al actualizar paciente:', err);
-          //Swal.fire('Error', 'No se pudo actualizar en el servidor.', 'error');
+          Swal.fire('Error', 'No se pudo actualizar en el servidor.', 'error');
         }
       });
-      //alert('✅ Registro actualizado correctamente');
+      
     } else {
       this.agendaService.agregarPaciente(datosPaciente);
       this.cancelarEdicion();
