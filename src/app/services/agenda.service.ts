@@ -1,5 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, tap} from 'rxjs';
 import { CitaModel } from '../models/cita.model';
 import { PacienteModel } from '../models/paciente.model';
 import Swal from 'sweetalert2';
@@ -41,16 +42,14 @@ export class AgendaService {
     });
   }
 
-  actualizarPaciente(paciente: PacienteModel) {
-    this.http.put(`${this.API_URL}/pacientes/${paciente.id}`, paciente).subscribe({
-      next: () => {
-        this.pacientes.update(lista => 
-          lista.map(p => p.id === paciente.id ? paciente : p)
-        );
-        Swal.fire('Actualización Finalizada', 'Los datos han sido modificados.', 'success');
-      },
-      error: () => Swal.fire('Error', 'La actualización no pudo completarse.', 'error')
-    });
+  actualizarPaciente(paciente: PacienteModel): Observable<any> {
+      return this.http.put(`${this.API_URL}/pacientes/${paciente.id}`, paciente).pipe(
+        tap(() => {
+          this.pacientes.update(lista => 
+            lista.map(p => p.id === paciente.id ? paciente : p)
+          );
+        })
+      );
   }
 
   eliminarPaciente(id: number) {
@@ -64,28 +63,25 @@ export class AgendaService {
   }
 
   // --- GESTIÓN DE CITAS ---
-  agregarCita(c: CitaModel) {
-    const citaParaEnviar = { ...c };
-    
-    // Usamos (citaParaEnviar.fecha as any) para evitar el error de TypeScript
-    const fechaValor = citaParaEnviar.fecha as any;
+  agregarCita(c: CitaModel): Observable<any> {
+      const citaParaEnviar = { ...c };
+      const fechaValor = citaParaEnviar.fecha as any;
 
-    if (fechaValor instanceof Date) {
-      const offset = fechaValor.getTimezoneOffset();
-      const fechaAjustada = new Date(fechaValor.getTime() - (offset * 60 * 1000));
-      citaParaEnviar.fecha = fechaAjustada.toISOString().split('T')[0];
-    } else if (typeof fechaValor === 'string' && fechaValor.includes('T')) {
-      // Por si acaso viene como string de ISO (con la T de tiempo)
-      citaParaEnviar.fecha = fechaValor.split('T')[0];
-    }
+      // Lógica para asegurar formato YYYY-MM-DD compatible con MySQL/TiDB
+      if (fechaValor instanceof Date) {
+        const offset = fechaValor.getTimezoneOffset();
+        const fechaAjustada = new Date(fechaValor.getTime() - (offset * 60 * 1000));
+        citaParaEnviar.fecha = fechaAjustada.toISOString().split('T')[0];
+      } else if (typeof fechaValor === 'string' && fechaValor.includes('T')) {
+        citaParaEnviar.fecha = fechaValor.split('T')[0];
+      }
 
-    this.http.post(`${this.API_URL}/citas`, citaParaEnviar).subscribe({
-      next: () => {
-        this.citas.update(lista => [...lista, citaParaEnviar]);
-        Swal.fire('Cita Confirmada', 'La reserva ha sido registrada.', 'success');
-      },
-      error: () => Swal.fire('Error', 'El horario seleccionado no está disponible.', 'error')
-    });
+      return this.http.post(`${this.API_URL}/citas`, citaParaEnviar).pipe(
+        tap(() => {
+          // Si tiene éxito, actualizamos el signal local
+          this.citas.update(lista => [...lista, citaParaEnviar]);
+        })
+      );
   }
 
   actualizarCita(cita: CitaModel) {
