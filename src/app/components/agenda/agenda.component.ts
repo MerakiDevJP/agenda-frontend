@@ -74,13 +74,13 @@ reservarCita(cita: any) {
     pacienteId: idPaciente 
   };
 
-  // Cambiamos a una suscripción con manejo de error detallado
+  // Se cambia a una suscripción con manejo de error detallado
   this.agendaService.agregarCita(nuevaCita).subscribe({
     next: () => {
       Swal.fire('Éxito', 'La cita ha sido agendada correctamente.', 'success');
     },
     error: (err) => {
-      // Capturamos el error 400 que configuramos en el backend
+      // Se captura el error 400 de duplicados del backend
       const mensaje = err.error?.message || 'No se pudo agendar la cita.';
       Swal.fire('Error de Validación', mensaje, 'error');
     }

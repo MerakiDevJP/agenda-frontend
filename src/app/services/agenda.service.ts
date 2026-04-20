@@ -46,7 +46,7 @@ export class AgendaService {
       return this.http.put(`${this.API_URL}/pacientes/${paciente.id}`, paciente).pipe(
         tap(() => {
           this.pacientes.update(lista => 
-            lista.map(p => p.id === paciente.id ? paciente : p)
+            lista.map(p => p.id === paciente.id ? { ...paciente } : p)
           );
         })
       );
