@@ -64,24 +64,25 @@ export class AgendaService {
 
   // --- GESTIÓN DE CITAS ---
   agregarCita(c: CitaModel): Observable<any> {
-      const citaParaEnviar = { ...c };
-      const fechaValor = citaParaEnviar.fecha as any;
+    const citaParaEnviar = { ...c };
+    const fechaOriginal = citaParaEnviar.fecha;
 
-      // Lógica para asegurar formato YYYY-MM-DD compatible con MySQL/TiDB
-      if (fechaValor instanceof Date) {
-        const offset = fechaValor.getTimezoneOffset();
-        const fechaAjustada = new Date(fechaValor.getTime() - (offset * 60 * 1000));
+    // Se normaliza la fecha YYYY-MM-DD
+    if (fechaOriginal instanceof Date) {
+        const offset = fechaOriginal.getTimezoneOffset();
+        const fechaAjustada = new Date(fechaOriginal.getTime() - (offset * 60 * 1000));
         citaParaEnviar.fecha = fechaAjustada.toISOString().split('T')[0];
-      } else if (typeof fechaValor === 'string' && fechaValor.includes('T')) {
-        citaParaEnviar.fecha = fechaValor.split('T')[0];
-      }
+    } else if (typeof fechaOriginal === 'string') {
+        // Si viene con "T" (ISO), cortamos; si no, dejamos el string que ya debería ser YYYY-MM-DD
+        citaParaEnviar.fecha = fechaOriginal.includes('T') ? fechaOriginal.split('T')[0] : fechaOriginal;
+    }
 
-      return this.http.post(`${this.API_URL}/citas`, citaParaEnviar).pipe(
+    return this.http.post(`${this.API_URL}/citas`, citaParaEnviar).pipe(
         tap(() => {
-          // Si tiene éxito, actualizamos el signal local
-          this.citas.update(lista => [...lista, citaParaEnviar]);
+            // se actualiza el signal con la fecha ya formateada para mantener la consistencia en la UI
+            this.citas.update(lista => [...lista, citaParaEnviar]);
         })
-      );
+    );
   }
 
   actualizarCita(cita: CitaModel) {

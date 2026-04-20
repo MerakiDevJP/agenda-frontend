@@ -48,7 +48,7 @@ export class PacientesComponent {
       this.agendaService.actualizarPaciente(datosPaciente).subscribe({
         next: () => {
           this.cancelarEdicion();
-          Swal.fire('Actualizado', 'Los datos se sincronizaron con TiDB.', 'success');
+          Swal.fire('Actualizado', 'Los datos se sincronizaron.', 'success');
         },
         error: (err) => {
           console.error('Error al actualizar paciente:', err);
