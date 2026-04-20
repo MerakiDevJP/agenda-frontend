@@ -40,18 +40,26 @@ export class PacientesComponent {
 
     const datosPaciente = {
       ...this.pacienteForm.value,
-      id: this.isEditing ? this.editId : Date.now()
-    };
+      id: this.isEditing ? this.editId : undefined
+    };//Date.now()
 
     if (this.isEditing) {
-      this.agendaService.actualizarPaciente(datosPaciente);
+      this.agendaService.actualizarPaciente(datosPaciente).subscribe({
+        next: () => {
+          this.cancelarEdicion();
+          // Swal.fire('Actualizado', 'Los datos se sincronizaron con TiDB.', 'success');
+        },
+        error: (err) => {
+          console.error('Error al actualizar paciente:', err);
+          //Swal.fire('Error', 'No se pudo actualizar en el servidor.', 'error');
+        }
+      });
       //alert('✅ Registro actualizado correctamente');
     } else {
       this.agendaService.agregarPaciente(datosPaciente);
-      //alert('✅ Paciente guardado con éxito');
+      this.cancelarEdicion();
     }
-
-    this.cancelarEdicion();
+   
   }
 
   prepararEdicion(paciente: any) {
