@@ -60,23 +60,32 @@ export class AgendaComponent {
     });
   });
 
-  reservarCita(cita: any) {
-    const idPaciente = this.pacienteSeleccionado();
-    if (!idPaciente) {
-      Swal.fire('Atención', 'Por favor, seleccione un paciente primero.', 'warning');
-      return;
-    }
-
-    const nuevaCita = { 
-      ...cita, 
-      id: Date.now(), // ID numérico compatible con BIGINT
-      estado: 'ocupado', 
-      pacienteId: idPaciente 
-    };
-    
-    this.agendaService.agregarCita(nuevaCita);
+reservarCita(cita: any) {
+  const idPaciente = this.pacienteSeleccionado();
+  if (!idPaciente) {
+    Swal.fire('Atención', 'Por favor, seleccione un paciente primero.', 'warning');
+    return;
   }
 
+  const nuevaCita = { 
+    ...cita, 
+    id: Date.now(), 
+    estado: 'ocupado', 
+    pacienteId: idPaciente 
+  };
+
+  // Cambiamos a una suscripción con manejo de error detallado
+  this.agendaService.agregarCita(nuevaCita).subscribe({
+    next: () => {
+      Swal.fire('Éxito', 'La cita ha sido agendada correctamente.', 'success');
+    },
+    error: (err) => {
+      // Capturamos el error 400 que configuramos en el backend
+      const mensaje = err.error?.message || 'No se pudo agendar la cita.';
+      Swal.fire('Error de Validación', mensaje, 'error');
+    }
+  });
+}
   // MÉTODO PARA ELIMINAR / CANCELAR
   cancelarCita(id: number | string) {
     Swal.fire({
